@@ -22,10 +22,10 @@
 							<tool id="org.eclipse.cdt.build.core.settings.holder.libs.1719216824" name="holder for library settings" superClass="org.eclipse.cdt.build.core.settings.holder.libs"/>
 							<tool id="org.eclipse.cdt.build.core.settings.holder.1645324750" name="Assembly" superClass="org.eclipse.cdt.build.core.settings.holder">
 								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.46400377" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${env_var:ANDROID_NDK}/platforms/android-14/arch-arm/usr/include/&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${env_var:ANDROID_NDK}/sources/android/native_app_glue&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${env_var:ANDROID_NDK}/sources/libpng&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${env_var:ANDROID_NDK}/toolchains/arm-linux-androideabi-4.4.3/prebuilt/windows/lib/gcc/arm-linux-androideabi/4.4.3/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${env_var:NDK_MODULE_PATH}/platforms/android-14/arch-arm/usr/include/&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${env_var:NDK_MODULE_PATH}/sources/libpng&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${env_var:NDK_MODULE_PATH}/sources/android/native_app_glue&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${env_var:NDK_MODULE_PATH}/toolchains/arm-linux-androideabi-4.4.3/prebuilt/darwin-x86_64/lib/gcc/arm-linux-androideabi/4.4.3/include&quot;"/>
 								</option>
 								<option id="org.eclipse.cdt.build.core.settings.holder.symbols.1310499099" name="Symbols" superClass="org.eclipse.cdt.build.core.settings.holder.symbols" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="__ANDROID__"/>
@@ -35,10 +35,10 @@
 							</tool>
 							<tool id="org.eclipse.cdt.build.core.settings.holder.938933947" name="GNU C++" superClass="org.eclipse.cdt.build.core.settings.holder">
 								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.1121434928" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${env_var:ANDROID_NDK}/platforms/android-14/arch-arm/usr/include/&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${env_var:ANDROID_NDK}/sources/android/native_app_glue&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${env_var:ANDROID_NDK}/sources/libpng&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${env_var:ANDROID_NDK}/toolchains/arm-linux-androideabi-4.4.3/prebuilt/windows/lib/gcc/arm-linux-androideabi/4.4.3/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${env_var:NDK_MODULE_PATH}/platforms/android-14/arch-arm/usr/include/&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${env_var:NDK_MODULE_PATH}/sources/android/native_app_glue&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${env_var:NDK_MODULE_PATH}/sources/libpng&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${env_var:NDK_MODULE_PATH}/toolchains/arm-linux-androideabi-4.4.3/prebuilt/darwin-x86_64/lib/gcc/arm-linux-androideabi/4.4.3/include&quot;"/>
 								</option>
 								<option id="org.eclipse.cdt.build.core.settings.holder.symbols.547533620" name="Symbols" superClass="org.eclipse.cdt.build.core.settings.holder.symbols" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="__ANDROID__"/>
@@ -48,10 +48,10 @@
 							</tool>
 							<tool id="org.eclipse.cdt.build.core.settings.holder.1631860" name="GNU C" superClass="org.eclipse.cdt.build.core.settings.holder">
 								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.985089000" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${env_var:ANDROID_NDK}/platforms/android-14/arch-arm/usr/include/&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${env_var:ANDROID_NDK}/sources/android/native_app_glue&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${env_var:ANDROID_NDK}/sources/libpng&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${env_var:ANDROID_NDK}/toolchains/arm-linux-androideabi-4.4.3/prebuilt/windows/lib/gcc/arm-linux-androideabi/4.4.3/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${env_var:NDK_MODULE_PATH}/platforms/android-14/arch-arm/usr/include/&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${env_var:NDK_MODULE_PATH}/sources/android/native_app_glue&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${env_var:NDK_MODULE_PATH}/sources/libpng&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${env_var:NDK_MODULE_PATH}/toolchains/arm-linux-androideabi-4.4.3/prebuilt/darwin-x86_64/lib/gcc/arm-linux-androideabi/4.4.3/include&quot;"/>
 								</option>
 								<option id="org.eclipse.cdt.build.core.settings.holder.symbols.765781254" name="Symbols" superClass="org.eclipse.cdt.build.core.settings.holder.symbols" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="__ANDROID__"/>
