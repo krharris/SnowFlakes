@@ -1,4 +1,6 @@
 SnowFlakes
 ==========
 
-Snow Flakes rendered OpenGL ES 1.1 using point sprites in VBOs.
+Snow Flakes rendered using OpenGL ES 1.1 using point sprites in VBOs.
+
+Please Note: The Android version is not complete yet.
