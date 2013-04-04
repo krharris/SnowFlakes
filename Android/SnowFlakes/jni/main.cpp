@@ -4,6 +4,7 @@
 
 #include <errno.h>
 #include <math.h>
+#include <stdlib.h>
 #include <EGL/egl.h>
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
@@ -14,10 +15,37 @@
 
 using namespace guildhall;
 
-#define LOG_TAG "PNGLoader"
+#define LOG_TAG "SnowFlakes"
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__))
 #define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, LOG_TAG, __VA_ARGS__))
 #define LOGE(...) ((void)__android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__))
+
+// The Game's view size or area is 2 units wide and 3 units high.
+const float ViewMaxX = 2;
+const float ViewMaxY = 3;
+
+const int MaxSnowFlakes = 200;
+
+// Each snow flake will wait 3 seconds - then turn or change direction.
+const float TimeTillTurn = 3.0f;
+const float TimeTillTurnNormalizedUnit = 1.0f / TimeTillTurn;
+
+// Snow flake data.
+GLuint m_vertexBufferId;
+GLuint m_colorBufferId;
+GLuint m_pointSizeBufferId;
+
+float m_pos[MaxSnowFlakes][2];
+float m_vel[MaxSnowFlakes][2];
+float m_col[MaxSnowFlakes][4];
+float m_size[MaxSnowFlakes];
+float m_timeSinceLastTurn[MaxSnowFlakes];
+
+inline float RandomFloat( float min, float max )
+{
+	float r = (float)rand() / (float)RAND_MAX;
+	return min + r * (max - min);
+}
 
 // Our saved state data.
 struct savedState
@@ -48,72 +76,23 @@ struct engine
 double g_nowTime, g_prevTime;
 
 //
-// Vertex data in separate arrays.
-//
-
-const GLfloat g_vertices[] =
-{
-	 1.0f,  1.0f, 0.0f,
-	-1.0f,  1.0f, 0.0f,
-	-1.0f, -1.0f, 0.0f,
-
-	 1.0f,  1.0f, 0.0f,
-	-1.0f, -1.0f, 0.0f,
-	 1.0f, -1.0f, 0.0f
-};
-/*
-const GLfloat g_colors[] =
-{
-	1.0f, 0.0f, 0.0f, 1.0f, // vertex 0 is red
-	0.0f, 1.0f, 0.0f, 1.0f, // vertex 1 is green
-	0.0f, 0.0f, 1.0f, 1.0f, // vertex 2 is blue
-
-	1.0f, 0.0f, 0.0f, 1.0f, // vertex 3 is red
-	0.0f, 0.0f, 1.0f, 1.0f, // vertex 4 is blue
-	1.0f, 1.0f, 1.0f, 1.0f  // vertex 5 is white
-};
-//*/
-//*
-const GLfloat g_colors[] =
-{
-	1.0f, 1.0f, 1.0f, 1.0f,
-	1.0f, 1.0f, 1.0f, 1.0f,
-	1.0f, 1.0f, 1.0f, 1.0f,
-
-	1.0f, 1.0f, 1.0f, 1.0f,
-	1.0f, 1.0f, 1.0f, 1.0f,
-	1.0f, 1.0f, 1.0f, 1.0f
-};
-//*/
-const GLfloat g_texCoords[] =
-{
-	1.0, 1.0,
-	0.0, 1.0,
-	0.0, 0.0,
-
-	1.0, 1.0,
-	0.0, 0.0,
-	1.0, 0.0
-};
-
-//
 // Shader related variables...
 //
 
 Texture* g_texture = NULL;
-Matrix4x4f g_perspectiveMatrix;
+Matrix4x4f g_orthographicMatrix;
 
 GLuint g_program;
 GLuint g_a_positionHandle;
 GLuint g_a_colorHandle;
-GLuint g_a_texCoordHandle;
+GLuint g_a_pointSizeHandle;
 GLuint g_u_mvpMatrixHandle;
 GLuint g_u_texture0Handle;
 
 static const char g_vertexShader[] =
 	"attribute vec4 a_position;\n"
 	"attribute vec4 a_color;\n"
-	"attribute vec2 a_texCoord;\n"
+	"attribute float a_pointSize;\n"
 	"uniform mat4 u_mvpMatrix;\n"
 	"varying vec4 v_color;\n"
 	"varying vec2 v_texCoord;\n"
@@ -122,18 +101,17 @@ static const char g_vertexShader[] =
     "{\n"
 	"    gl_Position = u_mvpMatrix * a_position;"
 	"    v_color = a_color;"
-	"    v_texCoord = a_texCoord;"
+	"    gl_PointSize = a_pointSize;"
 	"}\n";
 
 static const char g_fragmentShader[] =
 	"precision mediump float;\n"
 	"varying vec4 v_color;"
-	"varying lowp vec2 v_texCoord;\n"
 	"uniform sampler2D u_texture0;\n"
 
 	"void main()\n"
 	"{\n"
-	"    gl_FragColor = v_color * texture2D( u_texture0, v_texCoord );\n"
+	"    gl_FragColor = v_color * texture2D( u_texture0, gl_PointCoord );\n"
 	"}\n";
 
 static void printGLString( const char *name, GLenum s )
@@ -302,7 +280,7 @@ static int initGL( struct engine* engine )
 	eglQuerySurface( display, surface, EGL_WIDTH, &w );
 	eglQuerySurface( display, surface, EGL_HEIGHT, &h );
 
-	g_texture = new Texture( engine->app, "android.png" );
+	g_texture = new Texture( engine->app, "snow.png" );
 	g_texture->load();
 
 	engine->display = display;
@@ -332,7 +310,7 @@ static int initGL( struct engine* engine )
 	// Vertex shader variables
 	g_a_positionHandle = glGetAttribLocation( g_program, "a_position" );
 	g_a_colorHandle = glGetAttribLocation( g_program, "a_color" );
-	g_a_texCoordHandle = glGetAttribLocation( g_program, "a_texCoord" );
+	g_a_pointSizeHandle = glGetAttribLocation( g_program, "a_pointSize" );
 	g_u_mvpMatrixHandle = glGetUniformLocation ( g_program, "u_mvpMatrix" );
 
 	// Fragment shader variables
@@ -340,16 +318,58 @@ static int initGL( struct engine* engine )
 
 	glViewport( 0, 0, w, h );
 
-	//gluPerspective( 45.0f, (float)w / (float)h, 0.1f, 100.0f );
-	g_perspectiveMatrix = Matrix4x4f::createPerspectiveProjection( 45.0f, (float)w / (float)h, 0.1f, 100.0f );
+	g_orthographicMatrix = Matrix4x4f::createOrthographicProjection( -ViewMaxX, +ViewMaxX, -ViewMaxY, +ViewMaxY, -1.0f, 1.0f );
 
 	g_nowTime = getCurrentTimeInSeconds();
 	g_prevTime = g_nowTime;
 
+    //
+    // General Setup...
+    //
+
+    glEnable( GL_TEXTURE_2D );
+    glDisable( GL_LIGHTING );
+
+    //
+    // Point Sprites...
+    //
+
+    glEnable( GL_POINT_SPRITE_OES );
+    //glTexEnvi( GL_POINT_SPRITE_OES, GL_COORD_REPLACE_OES, GL_TRUE );
+    //glTexEnvi( GL_POINT_SPRITE_OES, GL_COORD_REPLACE_OES, GL_FALSE );
+    //glPointSize( 10.0f );
+
+    // This helps as a work around for order-dependency artifacts that can occur when sprites overlap.
+    glBlendFunc( GL_SRC_ALPHA, GL_ONE );
+
+    //
+    // Snow Flakes...
+    //
+
+    for( int i = 0; i < MaxSnowFlakes; ++i )
+    {
+		m_pos[i][0] = RandomFloat( -ViewMaxX, ViewMaxX );
+        m_pos[i][1] = RandomFloat( -ViewMaxY, ViewMaxY );
+
+		m_vel[i][0] = RandomFloat( -0.004f, 0.004f ); // Flakes move side to side
+		m_vel[i][1] = RandomFloat( -0.01f, -0.008f ); // Flakes fall down
+
+		m_col[i][0] = 1.0f;
+		m_col[i][1] = 1.0f;
+		m_col[i][2] = 1.0f;
+		m_col[i][3] = 1.0f; //RandomFloat( 0.6f, 1.0f ); // It seems that Doodle Jump snow does not use alpha.
+
+        m_size[i] = RandomFloat( 3.0, 6.0f );
+
+        // It looks strange if the flakes all turn at the same time, so
+        // lets vary their turn times with a random negative value.
+        m_timeSinceLastTurn[i] = RandomFloat( -5.0, 0.0f );
+	}
+
 	return 0;
 }
 
-static void draw( struct engine* engine )
+static void update( struct engine* engine )
 {
 	if( engine->display == NULL )
 	{
@@ -360,44 +380,79 @@ static void draw( struct engine* engine )
 	g_nowTime = getCurrentTimeInSeconds();
 	double elapsed = g_nowTime - g_prevTime;
 
-	glClearColor( 0.0f, 0.0f, 0.0f, 1.0f );
+	for( int i = 0; i < MaxSnowFlakes; ++i )
+    {
+        // Keep track of how long it has been since this flake turned
+        // or changed direction.
+        m_timeSinceLastTurn[i] += elapsed;
+
+        if( m_timeSinceLastTurn[i] >= TimeTillTurn )
+        {
+            // Change or invert direction!
+            m_vel[i][0] = -(m_vel[i][0]);
+            m_timeSinceLastTurn[i] = 0.0f;
+        }
+
+        // Speed up the flake up as it leaves the last turn and prepares for next turn.
+        float turnVelocityModifier = m_timeSinceLastTurn[i] * TimeTillTurnNormalizedUnit;
+
+        // Apply some velocity to simulate gravity and wind.
+		m_pos[i][0] += (m_vel[i][0] * turnVelocityModifier); // Side to side
+		m_pos[i][1] += m_vel[i][1]; // Gravity
+
+        // But, if the snow flake goes off the bottom or strays too far
+        // left or right - respawn it back to the top.
+        if( m_pos[i][1] < -(ViewMaxY + 0.2f) ||
+            m_pos[i][0] < -(ViewMaxX + 0.2f) || m_pos[i][0] > (ViewMaxX + 0.2f) )
+        {
+            m_pos[i][0] = RandomFloat( -ViewMaxX, ViewMaxX );
+            m_pos[i][1] = 3.1;
+        }
+	}
+
+	g_prevTime = g_nowTime;
+}
+
+static void draw( struct engine* engine )
+{
+	if( engine->display == NULL )
+	{
+		// No display.
+		return;
+	}
+
+    // Doodle jump sky color (or something like it).
+    glClearColor( 0.31f, 0.43f, 0.63f, 1.0f );
 	glClear( GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT );
+
+    // We don't care about depth for point sprites.
+    glDepthMask( GL_FALSE ); // Turn off depth writes
+
+    glEnable( GL_BLEND );
+    glEnable( GL_POINT_SPRITE_OES );
+    //glTexEnvi( GL_POINT_SPRITE_OES, GL_COORD_REPLACE_OES, GL_TRUE );
 
 	glUseProgram( g_program );
 
-	static float rotationY = 0.0f;
-	rotationY += (elapsed * 50.0f);
+	glUniformMatrix4fv( g_u_mvpMatrixHandle, 1, GL_FALSE, g_orthographicMatrix.m );
 
-	if( rotationY > 360.0f )
-		rotationY = 0.0f;
-
-	Matrix4x4f translationMatrixZ;
-	translationMatrixZ.translate_z( -6.0 );
-
-	Matrix4x4f rotationMatrixY;
-	rotationMatrixY.rotate_y( rotationY );
-
-	Matrix4x4f mvp = g_perspectiveMatrix * translationMatrixZ * rotationMatrixY;
-
-	glUniformMatrix4fv( g_u_mvpMatrixHandle, 1, GL_FALSE, mvp.m );
-
-	glVertexAttribPointer( g_a_positionHandle, 3, GL_FLOAT, GL_FALSE, 0, g_vertices );
+	glVertexAttribPointer( g_a_positionHandle, 2, GL_FLOAT, GL_FALSE, 0, m_pos );
 	glEnableVertexAttribArray( g_a_positionHandle );
 
-	glVertexAttribPointer( g_a_colorHandle, 4, GL_FLOAT, GL_FALSE, 0, g_colors );
+	glVertexAttribPointer( g_a_colorHandle, 4, GL_FLOAT, GL_FALSE, 0, m_col );
 	glEnableVertexAttribArray( g_a_colorHandle );
 
-	glVertexAttribPointer( g_a_texCoordHandle, 2, GL_FLOAT, GL_FALSE, 0, g_texCoords );
-	glEnableVertexAttribArray( g_a_texCoordHandle );
+	glVertexAttribPointer( g_a_pointSizeHandle, 1, GL_FLOAT, GL_FALSE, 0, m_size );
+	glEnableVertexAttribArray( g_a_pointSizeHandle );
 
 	glUniform1i( g_u_texture0Handle, 0 );
 	g_texture->apply();
 
-	glDrawArrays( GL_TRIANGLES, 0, 6 );
+	glDrawArrays( GL_POINTS, 0, MaxSnowFlakes );
+
+    glDepthMask( GL_TRUE ); // Turn back on depth writes
 
 	eglSwapBuffers( engine->display, engine->surface );
-
-	g_prevTime = g_nowTime;
 }
 
 static void shutdownGL( struct engine* engine )
@@ -575,6 +630,8 @@ void android_main( struct android_app* app )
 
 			if( engine.state.angle > 1 )
 				engine.state.angle = 0;
+
+			update( &engine );
 
 			// Drawing is throttled to the screen update rate, so there
 			// is no need to do timing here.

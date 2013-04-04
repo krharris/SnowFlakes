@@ -468,6 +468,19 @@ Matrix4x4f Matrix4x4f::createPerspectiveProjection( float fieldOfVision, float a
 	return result;
 }
 
+Matrix4x4f Matrix4x4f::createOrthographicProjection( float left, float right, float bottom, float top, float near, float far )
+{
+	Matrix4x4f result;
+
+	result.m[0]  = 2.0f / (right - left);
+	result.m[5]  = 2.0f / (top - bottom);
+	result.m[10] = -2.0 / (far - near);
+	result.m[12] = -(right + left) / (right - left);
+	result.m[13] = -(top + bottom) / (top - bottom);
+	result.m[14] = -(far + near) / (far - near);
+
+	return result;
+}
 
 }
 

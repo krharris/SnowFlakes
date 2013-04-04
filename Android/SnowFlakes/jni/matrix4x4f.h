@@ -48,6 +48,7 @@ public:
     
 	static Matrix4x4f createFrustumProjection( float left, float right, float bottom, float top, float zNear, float zFar );
     static Matrix4x4f createPerspectiveProjection( float fieldOfVision, float aspectRatio, float zNear, float zFar );
+    static Matrix4x4f createOrthographicProjection( float left, float  right, float bottom, float top, float near, float far );
 
     // Operators...
     Matrix4x4f operator + (const Matrix4x4f &other);
