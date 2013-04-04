@@ -1,0 +1,303 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
+		4D27E4840F9AD71900447247 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D27E4830F9AD71900447247 /* OpenGLES.framework */; };
+		4D27E4B50F9AD7D600447247 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D27E4B40F9AD7D600447247 /* QuartzCore.framework */; };
+		4D3135ED0F9A6649001FFC34 /* GLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4D3135EC0F9A6649001FFC34 /* GLView.mm */; };
+		4D4BD1730FFED01B00B18B0F /* GL11Render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D4BD1720FFED01B00B18B0F /* GL11Render.cpp */; };
+		4D77F26B10793B10002D74C3 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D77F26A10793B10002D74C3 /* Default.png */; };
+		4D8FB3730F9EC1010055EDDB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8FB3720F9EC1010055EDDB /* main.m */; };
+		E725E7C9170B822A00935CAA /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E725E7C8170B822A00935CAA /* Default-568h@2x.png */; };
+		E7645910170D09A1007FAE18 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E764590F170D09A1007FAE18 /* Icon.png */; };
+		E7645912170D09A6007FAE18 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E7645911170D09A6007FAE18 /* Icon@2x.png */; };
+		E78DBB99170B8EDF0000E6F3 /* SnowFlakesAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E78DBB98170B8EDF0000E6F3 /* SnowFlakesAppDelegate.mm */; };
+		E7C06E78170BDD7800452C51 /* snow.png in Resources */ = {isa = PBXBuildFile; fileRef = E7C06E77170BDD7800452C51 /* snow.png */; };
+		E7D15119170DC74600F9AA1F /* ResourceLoader.mm in Sources */ = {isa = PBXBuildFile; fileRef = E7D15118170DC74600F9AA1F /* ResourceLoader.mm */; };
+		E7EC89F4170B89E0002EE784 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E7EC89F3170B89E0002EE784 /* Default@2x.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1D3623240D0F684500981E51 /* SnowFlakesAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnowFlakesAppDelegate.h; sourceTree = "<group>"; };
+		1D6058910D05DD3D006BFB54 /* SnowFlakes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnowFlakes.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		32CA4F630368D1EE00C91783 /* SnowFlakes_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnowFlakes_Prefix.pch; sourceTree = "<group>"; };
+		4D27E4830F9AD71900447247 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		4D27E4B40F9AD7D600447247 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		4D3135EB0F9A6649001FFC34 /* GLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLView.h; sourceTree = "<group>"; };
+		4D3135EC0F9A6649001FFC34 /* GLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GLView.mm; sourceTree = "<group>"; };
+		4D4BD1720FFED01B00B18B0F /* GL11Render.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL11Render.cpp; sourceTree = "<group>"; };
+		4D77F26A10793B10002D74C3 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		4D8FB3720F9EC1010055EDDB /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E725E7C8170B822A00935CAA /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		E72E6BE3170B8BCC00EB3496 /* GL11Render.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GL11Render.hpp; sourceTree = "<group>"; };
+		E764590F170D09A1007FAE18 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		E7645911170D09A6007FAE18 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		E78DBB98170B8EDF0000E6F3 /* SnowFlakesAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SnowFlakesAppDelegate.mm; sourceTree = "<group>"; };
+		E7C06E77170BDD7800452C51 /* snow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snow.png; sourceTree = "<group>"; };
+		E7D15117170DC74600F9AA1F /* IResourceLoader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IResourceLoader.hpp; sourceTree = "<group>"; };
+		E7D15118170DC74600F9AA1F /* ResourceLoader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourceLoader.mm; sourceTree = "<group>"; };
+		E7EC89F3170B89E0002EE784 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1D60588F0D05DD3D006BFB54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
+				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
+				4D27E4840F9AD71900447247 /* OpenGLES.framework in Frameworks */,
+				4D27E4B50F9AD7D600447247 /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				1D3623240D0F684500981E51 /* SnowFlakesAppDelegate.h */,
+				E78DBB98170B8EDF0000E6F3 /* SnowFlakesAppDelegate.mm */,
+				4D3135EB0F9A6649001FFC34 /* GLView.h */,
+				4D3135EC0F9A6649001FFC34 /* GLView.mm */,
+				E72E6BE3170B8BCC00EB3496 /* GL11Render.hpp */,
+				4D4BD1720FFED01B00B18B0F /* GL11Render.cpp */,
+				E7D15117170DC74600F9AA1F /* IResourceLoader.hpp */,
+				E7D15118170DC74600F9AA1F /* ResourceLoader.mm */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D6058910D05DD3D006BFB54 /* SnowFlakes.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				E7645911170D09A6007FAE18 /* Icon@2x.png */,
+				E764590F170D09A1007FAE18 /* Icon.png */,
+				E7C06E74170BD8C600452C51 /* Textures */,
+				080E96DDFE201D6D7F000001 /* Classes */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = CustomTemplate;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				4D8FB3720F9EC1010055EDDB /* main.m */,
+				32CA4F630368D1EE00C91783 /* SnowFlakes_Prefix.pch */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E7EC89F3170B89E0002EE784 /* Default@2x.png */,
+				E725E7C8170B822A00935CAA /* Default-568h@2x.png */,
+				4D77F26A10793B10002D74C3 /* Default.png */,
+				8D1107310486CEB800E47090 /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4D27E4B40F9AD7D600447247 /* QuartzCore.framework */,
+				4D27E4830F9AD71900447247 /* OpenGLES.framework */,
+				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
+				1D30AB110D05D00D00671497 /* Foundation.framework */,
+				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E7C06E74170BD8C600452C51 /* Textures */ = {
+			isa = PBXGroup;
+			children = (
+				E7C06E77170BDD7800452C51 /* snow.png */,
+			);
+			path = Textures;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1D6058900D05DD3D006BFB54 /* SnowFlakes */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "SnowFlakes" */;
+			buildPhases = (
+				1D60588D0D05DD3D006BFB54 /* Resources */,
+				1D60588E0D05DD3D006BFB54 /* Sources */,
+				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SnowFlakes;
+			productName = SnowFlakes;
+			productReference = 1D6058910D05DD3D006BFB54 /* SnowFlakes.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "SnowFlakes" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1D6058900D05DD3D006BFB54 /* SnowFlakes */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1D60588D0D05DD3D006BFB54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D77F26B10793B10002D74C3 /* Default.png in Resources */,
+				E725E7C9170B822A00935CAA /* Default-568h@2x.png in Resources */,
+				E7EC89F4170B89E0002EE784 /* Default@2x.png in Resources */,
+				E7C06E78170BDD7800452C51 /* snow.png in Resources */,
+				E7645910170D09A1007FAE18 /* Icon.png in Resources */,
+				E7645912170D09A6007FAE18 /* Icon@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1D60588E0D05DD3D006BFB54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D3135ED0F9A6649001FFC34 /* GLView.mm in Sources */,
+				4D8FB3730F9EC1010055EDDB /* main.m in Sources */,
+				4D4BD1730FFED01B00B18B0F /* GL11Render.cpp in Sources */,
+				E78DBB99170B8EDF0000E6F3 /* SnowFlakesAppDelegate.mm in Sources */,
+				E7D15119170DC74600F9AA1F /* ResourceLoader.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1D6058940D05DD3E006BFB54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = SnowFlakes_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				PRODUCT_NAME = SnowFlakes;
+			};
+			name = Debug;
+		};
+		1D6058950D05DD3E006BFB54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = SnowFlakes_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				PRODUCT_NAME = SnowFlakes;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "SnowFlakes" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D6058940D05DD3E006BFB54 /* Debug */,
+				1D6058950D05DD3E006BFB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "SnowFlakes" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}
