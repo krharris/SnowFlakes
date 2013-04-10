@@ -203,7 +203,7 @@ void GL11Renderer::Update( float timeStep )
         {
             // Change or invert direction!
             m_vel[i][0] = -(m_vel[i][0]);
-            m_timeSinceLastTurn[i] = 0.0f;
+            m_timeSinceLastTurn[i] = RandomFloat( -5.0, 0.0f );
         }
         
         // Speed up the flake up as it leaves the last turn and prepares for next turn.
