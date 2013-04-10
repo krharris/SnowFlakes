@@ -31,15 +31,15 @@ const float TimeTillTurn = 3.0f;
 const float TimeTillTurnNormalizedUnit = 1.0f / TimeTillTurn;
 
 // Snow flake data.
-GLuint m_vertexBufferId;
-GLuint m_colorBufferId;
-GLuint m_pointSizeBufferId;
+GLuint g_vertexBufferId;
+GLuint g_colorBufferId;
+GLuint g_pointSizeBufferId;
 
-float m_pos[MaxSnowFlakes][2];
-float m_vel[MaxSnowFlakes][2];
-float m_col[MaxSnowFlakes][4];
-float m_size[MaxSnowFlakes];
-float m_timeSinceLastTurn[MaxSnowFlakes];
+float g_pos[MaxSnowFlakes][2];
+float g_vel[MaxSnowFlakes][2];
+float g_col[MaxSnowFlakes][4];
+float g_size[MaxSnowFlakes];
+float g_timeSinceLastTurn[MaxSnowFlakes];
 
 inline float RandomFloat( float min, float max )
 {
@@ -348,22 +348,22 @@ static int initGL( struct engine* engine )
 
     for( int i = 0; i < MaxSnowFlakes; ++i )
     {
-		m_pos[i][0] = RandomFloat( -ViewMaxX, ViewMaxX );
-        m_pos[i][1] = RandomFloat( -ViewMaxY, ViewMaxY );
+		g_pos[i][0] = RandomFloat( -ViewMaxX, ViewMaxX );
+        g_pos[i][1] = RandomFloat( -ViewMaxY, ViewMaxY );
 
-		m_vel[i][0] = RandomFloat( -0.004f, 0.004f ); // Flakes move side to side
-		m_vel[i][1] = RandomFloat( -0.01f, -0.008f ); // Flakes fall down
+		g_vel[i][0] = RandomFloat( -0.004f, 0.004f ); // Flakes move side to side
+		g_vel[i][1] = RandomFloat( -0.01f, -0.008f ); // Flakes fall down
 
-		m_col[i][0] = 1.0f;
-		m_col[i][1] = 1.0f;
-		m_col[i][2] = 1.0f;
-		m_col[i][3] = 1.0f; //RandomFloat( 0.6f, 1.0f ); // It seems that Doodle Jump snow does not use alpha.
+		g_col[i][0] = 1.0f;
+		g_col[i][1] = 1.0f;
+		g_col[i][2] = 1.0f;
+		g_col[i][3] = 1.0f; //RandomFloat( 0.6f, 1.0f ); // It seems that Doodle Jump snow does not use alpha.
 
-        m_size[i] = RandomFloat( 3.0, 6.0f );
+        g_size[i] = RandomFloat( 3.0, 6.0f );
 
         // It looks strange if the flakes all turn at the same time, so
         // lets vary their turn times with a random negative value.
-        m_timeSinceLastTurn[i] = RandomFloat( -5.0, 0.0f );
+        g_timeSinceLastTurn[i] = RandomFloat( -5.0, 0.0f );
 	}
 
 	return 0;
@@ -384,29 +384,29 @@ static void update( struct engine* engine )
     {
         // Keep track of how long it has been since this flake turned
         // or changed direction.
-        m_timeSinceLastTurn[i] += elapsed;
+        g_timeSinceLastTurn[i] += elapsed;
 
-        if( m_timeSinceLastTurn[i] >= TimeTillTurn )
+        if( g_timeSinceLastTurn[i] >= TimeTillTurn )
         {
             // Change or invert direction!
-            m_vel[i][0] = -(m_vel[i][0]);
-            m_timeSinceLastTurn[i] = 0.0f;
+            g_vel[i][0] = -(g_vel[i][0]);
+            g_timeSinceLastTurn[i] = RandomFloat( -5.0, 0.0f );
         }
 
         // Speed up the flake up as it leaves the last turn and prepares for next turn.
-        float turnVelocityModifier = m_timeSinceLastTurn[i] * TimeTillTurnNormalizedUnit;
+        float turnVelocityModifier = g_timeSinceLastTurn[i] * TimeTillTurnNormalizedUnit;
 
         // Apply some velocity to simulate gravity and wind.
-		m_pos[i][0] += (m_vel[i][0] * turnVelocityModifier); // Side to side
-		m_pos[i][1] += m_vel[i][1]; // Gravity
+		g_pos[i][0] += (g_vel[i][0] * turnVelocityModifier); // Side to side
+		g_pos[i][1] += g_vel[i][1]; // Gravity
 
         // But, if the snow flake goes off the bottom or strays too far
         // left or right - respawn it back to the top.
-        if( m_pos[i][1] < -(ViewMaxY + 0.2f) ||
-            m_pos[i][0] < -(ViewMaxX + 0.2f) || m_pos[i][0] > (ViewMaxX + 0.2f) )
+        if( g_pos[i][1] < -(ViewMaxY + 0.2f) ||
+            g_pos[i][0] < -(ViewMaxX + 0.2f) || g_pos[i][0] > (ViewMaxX + 0.2f) )
         {
-            m_pos[i][0] = RandomFloat( -ViewMaxX, ViewMaxX );
-            m_pos[i][1] = 3.1;
+            g_pos[i][0] = RandomFloat( -ViewMaxX, ViewMaxX );
+            g_pos[i][1] = 3.1;
         }
 	}
 
@@ -436,13 +436,13 @@ static void draw( struct engine* engine )
 
 	glUniformMatrix4fv( g_u_mvpMatrixHandle, 1, GL_FALSE, g_orthographicMatrix.m );
 
-	glVertexAttribPointer( g_a_positionHandle, 2, GL_FLOAT, GL_FALSE, 0, m_pos );
+	glVertexAttribPointer( g_a_positionHandle, 2, GL_FLOAT, GL_FALSE, 0, g_pos );
 	glEnableVertexAttribArray( g_a_positionHandle );
 
-	glVertexAttribPointer( g_a_colorHandle, 4, GL_FLOAT, GL_FALSE, 0, m_col );
+	glVertexAttribPointer( g_a_colorHandle, 4, GL_FLOAT, GL_FALSE, 0, g_col );
 	glEnableVertexAttribArray( g_a_colorHandle );
 
-	glVertexAttribPointer( g_a_pointSizeHandle, 1, GL_FLOAT, GL_FALSE, 0, m_size );
+	glVertexAttribPointer( g_a_pointSizeHandle, 1, GL_FLOAT, GL_FALSE, 0, g_size );
 	glEnableVertexAttribArray( g_a_pointSizeHandle );
 
 	glUniform1i( g_u_texture0Handle, 0 );
